@@ -1,5 +1,5 @@
 {
-    "name": "litao/alipay",
+    "name": "yilu/alipay",
     "description": "支付宝SDK在Laravel5封装包。",
     "keywords": ["L5", "Laravel 5", "Laravel", "Alipay", "Alipay SDK"],
     "license": "MIT",
