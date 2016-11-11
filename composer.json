@@ -1,5 +1,5 @@
 {
-    "name": "yilu/alipay",
+    "name": "toplitao/alipay",
     "description": "支付宝SDK在Laravel5封装包。",
     "keywords": ["L5", "Laravel 5", "Laravel", "Alipay", "Alipay SDK"],
     "license": "MIT",
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Latrell\\Alipay\\": "src/Latrell/Alipay/"
+            "Yilu\\Alipay\\": "src/Yilu/Alipay/"
         }
     },
     "minimum-stability": "stable"

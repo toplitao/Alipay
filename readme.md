@@ -8,7 +8,7 @@ Alipay
 ## 安装
 
 ```
-composer require yilu/alipay dev-master
+composer require latrell/alipay dev-master
 ```
 
 更新你的依赖包 ```composer update``` 或者全新安装 ```composer install```。
@@ -46,7 +46,6 @@ $app->register(Latrell\Alipay\AlipayServiceProvider::class);
 
 ### 说明
 配置文件 `config/latrell-alipay.php` 为公共配置信息文件， `config/latrell-alipay-web.php` 为Web版支付宝SDK配置， `config/latrell-alipay-mobile.php` 为手机端支付宝SDK配置。
-将以上三个文件放入'config/alipay'(先手动创建目录)
 ## 例子
 
 ### 支付申请
