@@ -8,7 +8,7 @@ Alipay
 ## 安装
 
 ```
-composer require latrell/alipay dev-master
+composer require yilu/alipay dev-master
 ```
 
 更新你的依赖包 ```composer update``` 或者全新安装 ```composer install```。
@@ -25,7 +25,7 @@ composer require latrell/alipay dev-master
 ```php
     'providers' => [
         // ...
-        'Latrell\Alipay\AlipayServiceProvider',
+        'Yilu\Alipay\AlipayServiceProvider',
     ]
 ```
 
@@ -36,16 +36,16 @@ composer require latrell/alipay dev-master
 
 ```php
 //Register Service Providers
-$app->register(Latrell\Alipay\AlipayServiceProvider::class);
+$app->register(Yilu\Alipay\AlipayServiceProvider::class);
 ```
 
 由于Lumen的`artisan`命令不支持`vendor:publish`,需要自己手动将`src/config`下的配置文件拷贝到项目的`config`目录下,
-并将`config.php`改名成`latrell-alipay.php`,
-`mobile.php`改名成`latrell-alipay-mobile.php`,
-`web.php`改名成`latrell-alipay-web.php`.
+并将`config.php`改名成`yilu-alipay.php`,
+`mobile.php`改名成`yilu-alipay-mobile.php`,
+`web.php`改名成`yilu-alipay-web.php`.
 
 ### 说明
-配置文件 `config/latrell-alipay.php` 为公共配置信息文件， `config/latrell-alipay-web.php` 为Web版支付宝SDK配置， `config/latrell-alipay-mobile.php` 为手机端支付宝SDK配置。
+配置文件 `config/yilu-alipay.php` 为公共配置信息文件， `config/yilu-alipay-web.php` 为Web版支付宝SDK配置， `config/yilu-alipay-mobile.php` 为手机端支付宝SDK配置。
 ## 例子
 
 ### 支付申请
