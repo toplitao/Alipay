@@ -26,21 +26,25 @@ class AlipayServiceProvider extends ServiceProvider
 		$source_config = realpath(__DIR__ . '/../../config/config.php');
 		$source_mobile = realpath(__DIR__ . '/../../config/mobile.php');
 		$source_web = realpath(__DIR__ . '/../../config/web.php');
+		$source_batch_trans = realpath(__DIR__ . '/../../config/batch_trans.php');
 		if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
 			$this->publishes([
 				$source_config => config_path('alipay/yilu-alipay.php'),
 				$source_mobile => config_path('alipay/yilu-alipay-mobile.php'),
 				$source_web => config_path('alipay/yilu-alipay-web.php'),
+				$source_batch_trans =>config_path('alipay/yilu-alipay-batch_trans.php'),
 			]);
 		} elseif ($this->app instanceof LumenApplication) {
 			$this->app->configure('alipay/yilu-alipay');
 			$this->app->configure('alipay/yilu-alipay-mobile');
 			$this->app->configure('alipay/yilu-alipay-web');
+			$this->app->configure('alipay/yilu-alipay-batch_trans');
 		}
 		
 		$this->mergeConfigFrom($source_config, 'alipay/yilu-alipay');
 		$this->mergeConfigFrom($source_mobile, 'alipay/yilu-alipay-mobile');
 		$this->mergeConfigFrom($source_web, 'alipay/yilu-alipay-web');
+		$this->mergeConfigFrom($source_web, 'alipay/yilu-alipay-batch_trans');
 	}
 
 	/**
@@ -86,10 +90,10 @@ class AlipayServiceProvider extends ServiceProvider
 
 			$alipay->setPartner($app->config->get('alipay.yilu-alipay.partner_id'))
 			->setSellerId($app->config->get('alipay.yilu-alipay.seller_id'))
-			->setKey($app->config->get('alipay.yilu-alipay-web.key'))
-			->setSignType($app->config->get('alipay.yilu-alipay-web.sign_type'))
-			->setNotifyUrl($app->config->get('alipay.yilu-alipay-web.notify_url'))
-			->setReturnUrl($app->config->get('alipay.yilu-alipay-web.return_url'))
+			->setKey($app->config->get('alipay.yilu-alipay-wap.key'))
+			->setSignType($app->config->get('alipay.yilu-alipay-wap.sign_type'))
+			->setNotifyUrl($app->config->get('alipay.yilu-alipay-wap.notify_url'))
+			->setReturnUrl($app->config->get('alipay.yilu-alipay-wap.return_url'))
 			->setExterInvokeIp($app->request->getClientIp());
 
 			return $alipay;
@@ -101,10 +105,11 @@ class AlipayServiceProvider extends ServiceProvider
 
 			$alipay->setPartner($app->config->get('alipay.yilu-alipay.partner_id'))
 			->setSellerId($app->config->get('alipay.yilu-alipay.seller_id'))
-			->setKey($app->config->get('alipay.yilu-alipay-web.key'))
-			->setSignType($app->config->get('alipay.yilu-alipay-web.sign_type'))
-			->setNotifyUrl($app->config->get('alipay.yilu-alipay-web.notify_url'))
-			->setReturnUrl($app->config->get('alipay.yilu-alipay-web.return_url'))
+			->setKey($app->config->get('alipay.yilu-alipay-batch_trans.key'))
+			->setSignType($app->config->get('alipay.yilu-alipay-batch_trans.sign_type'))
+			->setAccountName($app->config->get('alipay.yilu-alipay-batch_trans.account_name'))
+			->setNotifyUrl($app->config->get('alipay.yilu-alipay-batch_trans.notify_url'))
+			->setReturnUrl($app->config->get('alipay.yilu-alipay-batch_trans.return_url'))
 			->setExterInvokeIp($app->request->getClientIp());
 
 			return $alipay;

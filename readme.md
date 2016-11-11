@@ -5,6 +5,8 @@ Alipay
 
 该拓展包想要达到在Laravel5/Lumen框架下，便捷使用支付宝的目的。
 
+部分代码参考latrell/Alipay。
+
 ## 安装
 
 ```
@@ -42,10 +44,12 @@ $app->register(Yilu\Alipay\AlipayServiceProvider::class);
 由于Lumen的`artisan`命令不支持`vendor:publish`,需要自己手动将`src/config`下的配置文件拷贝到项目的`config`目录下,
 并将`config.php`改名成`yilu-alipay.php`,
 `mobile.php`改名成`yilu-alipay-mobile.php`,
-`web.php`改名成`yilu-alipay-web.php`.
+`web.php`改名成`yilu-alipay-web.php`，
+`batch_trans.php`改名成`yilu-alipay-batch_trans.php`.
 
 ### 说明
-配置文件 `config/yilu-alipay.php` 为公共配置信息文件， `config/yilu-alipay-web.php` 为Web版支付宝SDK配置， `config/yilu-alipay-mobile.php` 为手机端支付宝SDK配置。
+配置文件 `config/alipay/yilu-alipay.php` 为公共配置信息文件， `config/alipay/yilu-alipay-web.php` 为Web版支付宝SDK配置， `config/alipay/yilu-alipay-mobile.php` 为手机端支付宝SDK配置, 
+`config/alipay/yilu-alipay-batch_trans.php` 为批量付款到支付宝账户SDK配置。
 ## 例子
 
 ### 支付申请
@@ -78,6 +82,49 @@ $app->register(Yilu\Alipay\AlipayServiceProvider::class);
 
 	// 返回签名后的支付参数给支付宝移动端的SDK。
 	return $alipay->getPayPara();
+```
+
+#### 手机网站支付（Wap）
+
+```php
+	// 创建支付单。
+	$alipay = app('alipay.wap');
+	$alipay->setOutTradeNo('order_id');
+	$alipay->setTotalFee('order_price');
+	$alipay->setSubject('goods_name');
+	$alipay->setBody('goods_description');
+
+	// 返回支付链接到手机浏览器唤醒支付宝支付。
+	return '<script>location.href = "'.$alipay->getPayLink().'";</script>';
+
+```
+#### 批量付款到支付宝账户（开发者测试中......）
+	$alipay = app('alipay.batch_trans');
+	$a=[
+		"notify_url" => '',
+		"pay_date" => '20161111', 
+		"batch_no" => '20161111001', 
+		"batch_fee" => '0.01', 
+		"batch_num" => '1', 
+		"detail_data" => '12345678^收款方支付宝账号^名字^0.01^备注', //多人请用 | 隔开
+	];
+	$result = $alipay->buildRequestForm($a);
+	return $result;
+
+### 结果通知
+
+#### 手机网站支付（Wap）
+
+```php
+	// 创建支付单。
+	$alipay = app('alipay.wap');
+	$alipay->setOutTradeNo('order_id');
+	$alipay->setTotalFee('order_price');
+	$alipay->setSubject('goods_name');
+	$alipay->setBody('goods_description');
+
+	// 返回支付链接到手机浏览器唤醒支付宝支付。
+	return '<script>location.href = "'.$alipay->getPayLink().'";</script>';
 ```
 
 ### 结果通知

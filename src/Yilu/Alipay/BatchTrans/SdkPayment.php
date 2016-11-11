@@ -10,13 +10,15 @@ namespace Yilu\Alipay\BatchTrans;
 
 require 'src/alipay_submit.class.php';
 
-class BatchTrans
+class SdkPayment
 {
     private $alipay_submit;
 
     private $__https_verify_url = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
 
     private $__http_verify_url = 'http://notify.alipay.com/trade/notify_query.do?';
+
+    private $service = 'batch_trans_notify';
 
     private $partner;
 
@@ -77,87 +79,111 @@ class BatchTrans
             'cacert' => $this->cacert,
             'transport' => $this->transport
         ]);
-        $parameter = array( "service" => "batch_trans_notify", 
-			"partner" => trim(Config::$partner), 
-			"notify_url" => 'notify_url', 
-			"email" => 'xxx@xxx 支付宝账号', 
-			"account_name" => 'xxxxx公司', 
-			"pay_date" => '20160627', 
-			"batch_no" => '201008010000001', 
-			"batch_fee" => '0.01', 
-			"batch_num" => '1', 
-			"detail_data" => '000001^支付宝账号^姓名^0.01^测试', 
-			"_input_charset" => trim(strtolower(Config::$input_charset)) 
-		);
+
+        $params["service"] = $this->service;
+        $params["_input_charset"] = $this->_input_charset; 
+        //从配置文件传入的配置
+        $params["partner"] = $this->partner;
+        $params["email"] = $this->seller_id;
+        $params["account_name"] = $this->account_name;
 
 
         return $this->alipay_submit->buildRequestForm($params, 'post', 'submit');
     }
 
 
-    public function setBody($body)
-    {
-        $this->body = $body;
-        return $this;
-    }
-
-    public function setNotifyUrl($notify_url)
-    {
-        $this->notify_url = $notify_url;
-        return $this;
-    }
-
-    public function setOutTradeNo($out_trade_no)
-    {
-        $this->out_trade_no = $out_trade_no;
-        return $this;
-    }
-
     public function setPartner($partner)
-    {
-        $this->partner = $partner;
-        return $this;
-    }
+	{
+		$this->partner = $partner;
+		return $this;
+	}
 
-    public function setPrivateKeyPath($private_key_path)
-    {
-        $this->private_key_path = $private_key_path;
-        return $this;
-    }
+	public function setNotifyUrl($notify_url)
+	{
+		$this->notify_url = $notify_url;
+		return $this;
+	}
 
-    public function setPublicKeyPath($public_key_path)
-    {
-        $this->public_key_path = $public_key_path;
-        return $this;
-    }
+	public function setReturnUrl($return_url)
+	{
+		$this->return_url = $return_url;
+		return $this;
+	}
 
-    public function setSellerId($seller_id)
-    {
-        $this->seller_id = $seller_id;
-        return $this;
-    }
+	public function setOutTradeNo($out_trade_no)
+	{
+		$this->out_trade_no = $out_trade_no;
+		return $this;
+	}
 
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-        return $this;
-    }
+	public function setKey($key)
+	{
+		$this->key = $key;
+		return $this;
+	}
 
-    public function setTotalFee($total_fee)
-    {
-        $this->total_fee = $total_fee;
-        return $this;
-    }
+	public function setSellerId($seller_id)
+	{
+		$this->seller_id = $seller_id;
+		return $this;
+	}
 
-    public function setSignType($sign_type)
-    {
-        $this->sign_type = $sign_type;
-        return $this;
-    }
+	public function setTotalFee($total_fee)
+	{
+		$this->total_fee = $total_fee;
+		return $this;
+	}
 
-    public function setCacert($cacert)
+	public function setSubject($subject)
+	{
+		$this->subject = $subject;
+		return $this;
+	}
+
+	public function setBody($body)
+	{
+		$this->body = $body;
+		return $this;
+	}
+
+	public function setItBPay($it_b_pay)
+	{
+		$this->it_b_pay = $it_b_pay;
+		return $this;
+	}
+
+	public function setShowUrl($show_url)
+	{
+		$this->show_url = $show_url;
+		return $this;
+	}
+
+	public function setSignType($sign_type)
+	{
+		$this->sign_type = $sign_type;
+		return $this;
+	}
+
+	public function setExterInvokeIp($exter_invoke_ip)
+	{
+		$this->exter_invoke_ip = $exter_invoke_ip;
+		return $this;
+	}
+
+	public function setAppPay($app_pay)
+	{
+		$this->app_pay = $app_pay;
+		return $this;
+	}
+
+	public function setCacert($cacert)
+	{
+		$this->cacert = $cacert;
+		return $this;
+	}
+    public function setAccountName($account_name)
     {
-        $this->cacert = $cacert;
+        $this->account_name = $account_name;
         return $this;
     }
 }
